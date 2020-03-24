@@ -18,6 +18,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import BleManager from 'react-native-ble-manager';
+import BackgroundTimer from 'react-native-background-timer';
 
 const window = Dimensions.get('window');
 
@@ -35,18 +36,22 @@ export default class App extends React.Component {
     AppState.addEventListener('change', this.handleAppStateChange);
 
     // eslint-disable-next-line prettier/prettier
-    BleManager.start({ showAlert: false });
+    BleManager.start({
+      showAlert: false,
+      restoreIdentifierKey: 'c007625e-994d-4109-adfd-e2eb504dfa9c',
+    });
 
     this.handlerDiscover = bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
       this.handleDiscoverPeripheral,
     );
-    this.handlerStop = bleManagerEmitter.addListener(
-      'BleManagerStopScan',
-      () => {
-        this.handleStopScan();
-      },
-    );
+
+    // this.handlerStop = bleManagerEmitter.addListener(
+    //   'BleManagerStopScan',
+    //   () => {
+    //     this.handleStopScan();
+    //   },
+    // );
     this.handlerDisconnect = bleManagerEmitter.addListener(
       'BleManagerDisconnectPeripheral',
       this.handleDisconnectedPeripheral,
@@ -55,6 +60,13 @@ export default class App extends React.Component {
       'BleManagerDidUpdateValueForCharacteristic',
       this.handleUpdateValueForCharacteristic,
     );
+
+    this.handlerRestoreState = bleManagerEmitter.addListener(
+      'BleManagerCentralManagerWillRestoreState',
+      this.handleWillRestoreState,
+    );
+
+
 
     if (Platform.OS === 'android' && Platform.Version >= 23) {
       PermissionsAndroid.check(
@@ -75,17 +87,19 @@ export default class App extends React.Component {
         }
       });
     }
+
+    this.scanForDevices();
+  }
+
+  handleWillRestoreState = () => {
+    console.log('handlerRestoreState');
+    this.scanForDevices();
   }
 
   handleAppStateChange = (nextAppState) => {
-    if (
-      this.state.appState.match(/inactive|background/) &&
-      nextAppState === 'active'
-    ) {
-      console.log('App has come to the foreground!');
-      BleManager.getConnectedPeripherals([]).then(peripheralsArray => {
-        console.log('Connected peripherals: ' + peripheralsArray.length);
-      });
+    const { scanning, appState } = this.state;
+    if (!scanning && nextAppState !== 'inactive' && appState !== nextAppState) {
+      this.scanForDevices();
     }
     this.setState({ appState: nextAppState });
   }
@@ -95,6 +109,9 @@ export default class App extends React.Component {
     this.handlerStop.remove();
     this.handlerDisconnect.remove();
     this.handlerUpdate.remove();
+    this.handlerRestoreState.remove();
+    BackgroundTimer.stopBackgroundTimer(); //after this call all code on background stop run.
+
   }
 
   handleDisconnectedPeripheral = (data) => {
@@ -118,24 +135,26 @@ export default class App extends React.Component {
     );
   }
 
-  handleStopScan = () => {
-    console.log('Scan is stopped');
-    this.setState && this.setState({ scanning: false });
-  }
+  // handleStopScan = () => {
+  //   console.log('Scan is stopped');
+  //   this.setState && this.setState({ scanning: false });
+  // }
 
-  startScan = () => {
+  scanForDevices = async () => {
     if (!this.state.scanning) {
-      //this.setState({peripherals: new Map()});
-      BleManager.scan([], 3, true).then(results => {
-        console.log('Scanning...');
-        this.setState({ scanning: true });
-      });
+      this.setState({ scanning: true });
+      BackgroundTimer.runBackgroundTimer(() => {
+        this.setState({ peripherals: new Map() });
+        BleManager.scan(['FE9F'], 5, true).then(results => {
+          console.log('Scanning...');
+        });
+      }, 15000);
     }
   }
 
   retrieveConnected = () => {
     BleManager.getConnectedPeripherals([]).then(results => {
-      if (results.length == 0) {
+      if (results.length === 0) {
         console.log('No connected peripherals');
       }
       console.log(results);
@@ -151,7 +170,7 @@ export default class App extends React.Component {
 
   handleDiscoverPeripheral = (peripheral) => {
     const peripherals = this.state.peripherals;
-    console.log('Got ble peripheral', peripheral);
+    console.log('Got ble peripheral', JSON.stringify(peripheral));
     if (!peripheral.name) {
       peripheral.name = 'NO NAME';
     }
@@ -276,7 +295,7 @@ export default class App extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <View style={{ margin: 10 }}>
-            <Button title={btnScanTitle} onPress={() => this.startScan()} />
+            <Button title={btnScanTitle} onPress={() => this.scanForDevices()} />
           </View>
 
           <View style={{ margin: 10 }}>
