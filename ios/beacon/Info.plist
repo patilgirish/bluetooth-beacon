@@ -39,11 +39,15 @@
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>This application requires bluetooth in order to bla bla bla.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This application requires location information in order to bla bla bla.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
+		<string>fetch</string>
+		<string>location</string>
 		<string>processing</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

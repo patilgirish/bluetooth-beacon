@@ -11,10 +11,14 @@
     "postinstall": "rndebugger-open"
   },
   "dependencies": {
+    "add": "^2.0.6",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-background-fetch": "2.7.1",
+    "react-native-background-geolocation": "^3.4.2",
     "react-native-background-timer": "^2.2.0",
-    "react-native-ble-manager": "^7.2.0"
+    "react-native-ble-manager": "^7.2.0",
+    "yarn": "^1.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

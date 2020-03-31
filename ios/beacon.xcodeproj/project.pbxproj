@@ -16,6 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* beaconTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* beaconTests.m */; };
+		68C97A1024331F060041904D /* RNBackgroundFetch in Resources */ = {isa = PBXBuildFile; fileRef = 68C97A0F24331F060041904D /* RNBackgroundFetch */; };
 		8087D1C44B47DDA2FD2E4703 /* libPods-beaconTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AABF1828D94D9621490C272 /* libPods-beaconTests.a */; };
 		AF2AB26FCFF24A8C2D3B504C /* libPods-beacon-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A0C32B0DEC48AAF8C55513 /* libPods-beacon-tvOSTests.a */; };
 		F1F5703916171440433BD714 /* libPods-beacon-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90BC5934E4AAA4022EBBFEF /* libPods-beacon-tvOS.a */; };
@@ -60,6 +61,7 @@
 		50C27858BE8F0C6EB556ABFE /* Pods-beacon-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-beacon-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-beacon-tvOSTests/Pods-beacon-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		52A7DBA331888D86A387F4BC /* Pods-beacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-beacon.release.xcconfig"; path = "Target Support Files/Pods-beacon/Pods-beacon.release.xcconfig"; sourceTree = "<group>"; };
 		5393D4679142F4DDB09F1015 /* Pods-beacon-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-beacon-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-beacon-tvOS/Pods-beacon-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		68C97A0F24331F060041904D /* RNBackgroundFetch */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RNBackgroundFetch; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch"; sourceTree = "<group>"; };
 		7B02BD35A2EE1201E5BF202C /* Pods-beaconTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-beaconTests.debug.xcconfig"; path = "Target Support Files/Pods-beaconTests/Pods-beaconTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8AABF1828D94D9621490C272 /* libPods-beaconTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-beaconTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A90BC5934E4AAA4022EBBFEF /* libPods-beacon-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-beacon-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				68C97A0F24331F060041904D /* RNBackgroundFetch */,
 				13B07FAE1A68108700A75B9A /* beacon */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* beaconTests */,
@@ -339,6 +342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68C97A1024331F060041904D /* RNBackgroundFetch in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
